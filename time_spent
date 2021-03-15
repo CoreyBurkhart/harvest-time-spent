@@ -1,0 +1,33 @@
+source ~/.harvest-env
+
+if ! command -v jq &> /dev/null
+then 
+  echo 'jq is required. Install by running "brew install jq"'
+  exit
+fi
+
+if ! test $1
+then
+  echo 'Please provide a task number to search for'
+  exit
+fi
+
+if test $2
+then
+  page_count=$2
+else
+  page_count=1
+fi
+
+for page in $(seq 1 $page_count)
+do
+  endpoints+=" https://api.harvestapp.com/v2/time_entries?page=$page"
+done
+
+curl $endpoints -s \
+  -H "Authorization: Bearer $H_ACCESS_TOKEN" \
+  -H "Harvest-Account-Id: $H_ACCOUNT_ID" \
+  | jq '.time_entries[]' \
+  | jq -s '.' \
+  | jq --arg task "$1" '.[] | select(.notes // "" | contains($task)) | .hours | tonumber' \
+  | jq -s '. | add' # -s to "slurp". converts stream to array so it can be summed.
