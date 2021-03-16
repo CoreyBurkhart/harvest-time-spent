@@ -1,4 +1,5 @@
 # get the file from github, put it in /usr/local/bin
+curl -s 'https://raw.githubusercontent.com/CoreyBurkhart/harvest-time-spent/master/time_spent' > /usr/local/bin/time_spent
 
 # create the .harvest-env file with user input
 echo 'Create a Harvest Personal Access Token here: https://id.getharvest.com/developers'
