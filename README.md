@@ -12,7 +12,7 @@ To search more entries, add a page count
 - [jq](https://stedolan.github.io/jq/download/) (`brew install jq`)
 
 # Installation
-`sh <(curl github/install.sh)`
+`sh <(curl -s 'https://raw.githubusercontent.com/CoreyBurkhart/harvest-time-spent/master/install.sh')`
 
 Create a Harvest Personal Access Token [here](https://id.getharvest.com/developers)
 
